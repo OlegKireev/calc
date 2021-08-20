@@ -1,4 +1,7 @@
 import React from 'react';
-import { StyledButton } from './styled';
+import classes from './Button.module.scss';
 
-export const Button = (props) => <StyledButton {...props}>{props.children}</StyledButton>;
+export const Button = ({ children, type, className }) => {
+  const cls = [classes.Button, ...className.split(' ')];
+  return <button className={cls.join(' ')}>{children}</button>;
+};

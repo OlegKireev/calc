@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator } from './Calculator';
+import Calculator from './Calculator';
 
 export const CalculatorContainer = (props) => {
   const [buttons, changeButtons] = useState([
@@ -63,7 +63,7 @@ export const CalculatorContainer = (props) => {
       label: '.',
       action: null,
       cell: 18,
-      type: '',
+      type: 'number',
       isClicked: false,
     },
     {
@@ -140,3 +140,5 @@ export const CalculatorContainer = (props) => {
 
   return <Calculator {...props} buttons={buttons} changeButtons={changeButtons} />;
 };
+
+export default CalculatorContainer;

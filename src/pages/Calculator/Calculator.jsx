@@ -1,18 +1,19 @@
 import React from 'react';
-import { Container } from './styled';
-import { Flex } from '../../components/Flex/index';
-import { Display } from './Display/index';
-import { Keyboard } from './Keyboard/index';
+import Display from './Display/Display';
+import Keyboard from './Keyboard/Keyboard';
+import classes from './Calculator.module.scss';
 
-export const Calculator = ({ buttons, changeButtons }) => {
+const Calculator = ({ buttons, changeButtons }) => {
   return (
-    <Container>
-      <Flex direction="column">
+    <div className={classes.Calculator}>
+      <div>
         <Display>display</Display>
         <Keyboard buttons={buttons} changeButtons={changeButtons}>
           keyboard
         </Keyboard>
-      </Flex>
-    </Container>
+      </div>
+    </div>
   );
 };
+
+export default Calculator;

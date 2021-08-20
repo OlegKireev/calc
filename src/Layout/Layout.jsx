@@ -1,4 +1,4 @@
 import React from 'react';
-import { Container } from './styled';
+import classes from './Layout.module.scss';
 
-export const Layout = ({ children }) => <Container>{children}</Container>;
+export const Layout = ({ children }) => <div className={classes.Layout}>{children}</div>;

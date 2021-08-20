@@ -1,4 +1,6 @@
 import React from 'react';
-import { StyledDisplay } from './styled';
+import classes from './Display.module.scss';
 
-export const Display = (props) => <StyledDisplay {...props}>{props.children}</StyledDisplay>;
+const Display = (props) => <div className={classes.Display}>{props.children}</div>;
+
+export default Display;

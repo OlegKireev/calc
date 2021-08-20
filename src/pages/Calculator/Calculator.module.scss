@@ -1,0 +1,12 @@
+.Calculator {
+  border-radius: 20px;
+  width: 320px;
+  height: 568px;
+  overflow: hidden;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}

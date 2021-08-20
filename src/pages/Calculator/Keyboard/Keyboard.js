@@ -1,17 +1,14 @@
 import React from 'react';
 import { Transition } from 'react-transition-group';
-import { Grid, StyledKeyboard, KeyboardButton, ActionButton, ResultButton } from './styled';
+import classes from './Keyboard.module.scss';
+import KeyboardButton from './KeyboardButton/KeyboardButton';
 
-export const Keyboard = (props) => {
+const Keyboard = (props) => {
   const { buttons, changeButtons } = props;
 
   const renderButtons = (buttonsArr) => {
     const sortedArr = buttonsArr.sort((a, b) => a.cell - b.cell);
     return sortedArr.map(({ label, action, type, isClicked, cell }) => {
-      let ButtonComponent = KeyboardButton;
-      if (type === 'action') ButtonComponent = ActionButton;
-      if (type === 'result') ButtonComponent = ResultButton;
-
       const onButtonClick = (isClicked) => {
         const buttonsCopy = buttons.slice();
         const button = buttonsCopy.find((but) => but.cell === cell);
@@ -30,20 +27,21 @@ export const Keyboard = (props) => {
       };
 
       return (
-        <Transition key={`${label}${cell}`} in={isClicked} timeout={200} classNames={'test'}>
-          {(state) => (
-            <ButtonComponent className={state} isClicked={isClicked} onClick={onButtonClick}>
-              {label}
-            </ButtonComponent>
-          )}
-        </Transition>
+        // <Transition key={`${label}${cell}`} in={isClicked} timeout={200} classNames={'test'}>
+        // {(state) => (
+        <KeyboardButton type={type} isClicked={isClicked} onClick={onButtonClick} label={label} />
+
+        // )}
+        // </Transition>
       );
     });
   };
 
   return (
-    <StyledKeyboard {...props}>
-      <Grid>{renderButtons(buttons)}</Grid>
-    </StyledKeyboard>
+    <div className={classes.Keyboard} {...props}>
+      <div className={classes.Grid}>{renderButtons(buttons)}</div>
+    </div>
   );
 };
+
+export default Keyboard;
