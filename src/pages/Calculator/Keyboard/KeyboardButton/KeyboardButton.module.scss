@@ -1,3 +1,5 @@
+@import './../../../../scss/animations.scss';
+
 .KeyboardButton {
   position: relative;
   width: 100%;
@@ -13,11 +15,6 @@
   }
 
   &::before {
-    animation: buttonClick 1s linear forwards;
-    // animation-play-state: ${(props) => (props.isClicked ? 'running' : 'paused')};
-  }
-
-  &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -26,10 +23,21 @@
     height: 100%;
     z-index: -1;
     opacity: 0;
-    transform: scale(0.95);
-
-    background-image: radial-gradient(transparent 55%, var(--color-purple) 70%);
+    background-image: radial-gradient(transparent 55%, var(--color-purple) 60%);
     border-radius: 50%;
+    transform: scale(0.95);
+  }
+
+  &:active {
+    color: var(--color-purple);
+  }
+
+  &.entering,
+  &.entered,
+  &.exiting {
+    &::before {
+      animation: buttonClick 0.25s ease-out forwards;
+    }
   }
 
   &.action {
@@ -39,5 +47,9 @@
   &.result {
     background-color: var(--color-purple);
     color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-purple-dark);
+    }
   }
 }

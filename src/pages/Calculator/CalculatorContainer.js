@@ -18,7 +18,7 @@ export const CalculatorContainer = (props) => {
       isClicked: false,
     },
     {
-      label: '<',
+      label: '%',
       action: null,
       cell: 3,
       type: 'action',
@@ -49,6 +49,13 @@ export const CalculatorContainer = (props) => {
       label: '+',
       action: null,
       cell: 16,
+      type: 'action',
+      isClicked: false,
+    },
+    {
+      label: '<',
+      action: null,
+      cell: 19,
       type: 'action',
       isClicked: false,
     },

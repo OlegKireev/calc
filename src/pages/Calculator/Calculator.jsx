@@ -3,14 +3,16 @@ import Display from './Display/Display';
 import Keyboard from './Keyboard/Keyboard';
 import classes from './Calculator.module.scss';
 
-const Calculator = ({ buttons, changeButtons }) => {
+const Calculator = (props) => {
+  const onScreenClick = (e) => {
+    console.log(e.clientX, e.clientY);
+  };
+
   return (
-    <div className={classes.Calculator}>
+    <div className={classes.Calculator} onClick={onScreenClick}>
       <div>
         <Display>display</Display>
-        <Keyboard buttons={buttons} changeButtons={changeButtons}>
-          keyboard
-        </Keyboard>
+        <Keyboard {...props} />
       </div>
     </div>
   );
