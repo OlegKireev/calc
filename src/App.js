@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from './Layout/index';
-import { Calculator } from './pages/Calculator/index';
+import { CalculatorContainer } from './pages/Calculator/index';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <>
       <GlobalStyles />
       <Layout>
-        <Calculator />
+        <CalculatorContainer />
       </Layout>
     </>
   );

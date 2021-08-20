@@ -4,11 +4,15 @@ import { Flex } from '../../components/Flex/index';
 import { Display } from './Display/index';
 import { Keyboard } from './Keyboard/index';
 
-export const Calculator = () => (
-  <Container>
-    <Flex direction="column">
-      <Display>display</Display>
-      <Keyboard>keyboard</Keyboard>
-    </Flex>
-  </Container>
-);
+export const Calculator = ({ buttons, changeButtons }) => {
+  return (
+    <Container>
+      <Flex direction="column">
+        <Display>display</Display>
+        <Keyboard buttons={buttons} changeButtons={changeButtons}>
+          keyboard
+        </Keyboard>
+      </Flex>
+    </Container>
+  );
+};
