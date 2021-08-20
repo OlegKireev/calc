@@ -1,7 +1,17 @@
-import './App.css';
+import React from 'react';
+import { Layout } from './Layout/index';
+import { Calculator } from './pages/Calculator/index';
+import { GlobalStyles } from './styles/GlobalStyles';
 
 const App = () => {
-  return <div className="App"></div>;
+  return (
+    <>
+      <GlobalStyles />
+      <Layout>
+        <Calculator />
+      </Layout>
+    </>
+  );
 };
 
 export default App;
