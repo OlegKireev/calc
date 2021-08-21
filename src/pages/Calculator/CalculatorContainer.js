@@ -11,7 +11,7 @@ export const CalculatorContainer = (props) => {
       isClicked: false,
     },
     {
-      label: 'MC',
+      label: '+/-',
       action: null,
       cell: 2,
       type: 'action',
@@ -145,7 +145,23 @@ export const CalculatorContainer = (props) => {
     },
   ]);
 
-  return <Calculator {...props} buttons={buttons} changeButtons={changeButtons} />;
+  const onButtonClick = (cell) => {
+    const changeButtonIsClicked = (isClicked) => {
+      const buttonsCopy = buttons.slice();
+      const button = buttonsCopy.find((but) => but.cell === cell);
+      const buttonsWithoutClickedButton = buttonsCopy.filter((button) => button.cell !== cell);
+      button.isClicked = isClicked;
+      const newButtons = buttonsWithoutClickedButton.concat(button);
+      changeButtons(newButtons);
+    };
+    changeButtonIsClicked(true);
+
+    setTimeout(() => {
+      changeButtonIsClicked(false);
+    }, 250);
+  };
+
+  return <Calculator {...props} buttons={buttons} onButtonClick={onButtonClick} />;
 };
 
 export default CalculatorContainer;

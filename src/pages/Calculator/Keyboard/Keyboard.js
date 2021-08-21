@@ -5,29 +5,11 @@ import buttonClasses from './KeyboardButton/KeyboardButton.module.scss';
 import KeyboardButton from './KeyboardButton/KeyboardButton';
 
 const Keyboard = (props) => {
-  const { buttons, changeButtons } = props;
+  const { buttons, onButtonClick } = props;
 
   const renderButtons = (buttonsArr) => {
     const sortedArr = buttonsArr.sort((a, b) => a.cell - b.cell);
     return sortedArr.map(({ label, action, type, isClicked, cell }) => {
-      const onButtonClick = (value) => {
-        const buttonsCopy = buttons.slice();
-        const button = buttonsCopy.find((but) => but.cell === cell);
-        const buttonsWithoutClickedButton = buttonsCopy.filter((button) => button.cell !== cell);
-        button.isClicked = true;
-        const newButtons = buttonsWithoutClickedButton.concat(button);
-        changeButtons(newButtons);
-
-        setTimeout(() => {
-          const buttonsCopy = buttons.slice();
-          const button = buttonsCopy.find((but) => but.cell === cell);
-          const buttonsWithoutClickedButton = buttonsCopy.filter((button) => button.cell !== cell);
-          button.isClicked = false;
-          const newButtons = buttonsWithoutClickedButton.concat(button);
-          changeButtons(newButtons);
-        }, 250);
-      };
-
       return (
         <Transition key={`${label}${cell}`} in={isClicked} timeout={{ enter: 250 }}>
           {(state) => (
@@ -35,7 +17,7 @@ const Keyboard = (props) => {
               className={buttonClasses[state]}
               type={type}
               isClicked={isClicked}
-              onClick={onButtonClick}
+              onClick={onButtonClick.bind(null, cell)}
               label={label}
             />
           )}
