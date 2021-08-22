@@ -1,0 +1,56 @@
+@import './../../../../scss/animations.scss';
+
+.KeyboardButton {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background-color: var(--color-white);
+  transition: 0.15s all ease;
+  z-index: auto;
+  font-weight: 400;
+
+  &:hover {
+    background-color: var(--color-gray);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    background-image: radial-gradient(transparent 55%, var(--color-purple) 60%);
+    border-radius: 50%;
+    transform: scale(0.95);
+  }
+
+  &:active {
+    color: var(--color-purple);
+  }
+
+  &.entering,
+  &.entered,
+  &.exiting {
+    &::before {
+      animation: buttonClick 0.25s ease-out forwards;
+    }
+  }
+
+  &.action {
+    color: var(--color-purple);
+  }
+
+  &.result {
+    background-color: var(--color-purple);
+    color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-purple-dark);
+    }
+  }
+}
