@@ -78,6 +78,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 17,
       type: 'number',
+      value: 0,
       isClicked: false,
     },
     {
@@ -85,6 +86,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 13,
       type: 'number',
+      value: 1,
       isClicked: false,
     },
     {
@@ -92,6 +94,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 14,
       type: 'number',
+      value: 2,
       isClicked: false,
     },
     {
@@ -99,6 +102,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 15,
       type: 'number',
+      value: 3,
       isClicked: false,
     },
     {
@@ -106,6 +110,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 9,
       type: 'number',
+      value: 4,
       isClicked: false,
     },
     {
@@ -113,6 +118,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 10,
       type: 'number',
+      value: 5,
       isClicked: false,
     },
     {
@@ -120,6 +126,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 11,
       type: 'number',
+      value: 6,
       isClicked: false,
     },
     {
@@ -127,6 +134,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 5,
       type: 'number',
+      value: 7,
       isClicked: false,
     },
     {
@@ -134,6 +142,7 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 6,
       type: 'number',
+      value: 8,
       isClicked: false,
     },
     {
@@ -141,11 +150,14 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 7,
       type: 'number',
+      value: 9,
       isClicked: false,
     },
   ]);
+  const [input, changeInput] = useState('');
+  const [mathquill, changeMathquill] = useState(null);
 
-  const onButtonClick = (cell) => {
+  const onButtonClick = ({ cell, value }) => {
     const changeButtonIsClicked = (isClicked) => {
       const buttonsCopy = buttons.slice();
       const button = buttonsCopy.find((but) => but.cell === cell);
@@ -155,13 +167,25 @@ export const CalculatorContainer = (props) => {
       changeButtons(newButtons);
     };
     changeButtonIsClicked(true);
-
+    changeInput(`${input}${value}`);
     setTimeout(() => {
       changeButtonIsClicked(false);
     }, 250);
   };
 
-  return <Calculator {...props} buttons={buttons} onButtonClick={onButtonClick} />;
+  const onCleanButtonClick = () => {
+    changeInput(``);
+  };
+
+  return (
+    <Calculator
+      {...props}
+      buttons={buttons}
+      input={input}
+      onButtonClick={onButtonClick}
+      onCleanButtonClick={onCleanButtonClick}
+    />
+  );
 };
 
 export default CalculatorContainer;

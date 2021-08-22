@@ -3,6 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: 'Urbanist', sans-serif;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
 :root {
   --color-purple: #7651ff;
   --color-purple-dark: #6741f0;
