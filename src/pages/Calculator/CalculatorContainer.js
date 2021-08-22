@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Calculator from './Calculator';
-import actions from '../../store/ducks/calc/actions';
+import { changeInputValue, changeMathquillValue } from '../../store/ducks/calc/actions';
 
 export const CalculatorContainer = (props) => {
-  const { input, changeInputValue } = props;
+  const { input, changeInputValue, changeMathquillValue } = props;
+
   const [buttons, changeButtons] = useState([
     {
       label: 'C',
-      action: null,
+      action: 'clean',
       cell: 1,
       type: 'action',
       isClicked: false,
@@ -53,11 +54,12 @@ export const CalculatorContainer = (props) => {
       action: null,
       cell: 16,
       type: 'action',
+      value: '+',
       isClicked: false,
     },
     {
       label: '<',
-      action: null,
+      action: 'backspace',
       cell: 19,
       type: 'action',
       isClicked: false,
@@ -71,14 +73,14 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '.',
-      action: null,
+      action: 'number',
       cell: 18,
       type: 'number',
       isClicked: false,
     },
     {
       label: '0',
-      action: null,
+      action: 'number',
       cell: 17,
       type: 'number',
       value: 0,
@@ -86,7 +88,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '1',
-      action: null,
+      action: 'number',
       cell: 13,
       type: 'number',
       value: 1,
@@ -94,7 +96,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '2',
-      action: null,
+      action: 'number',
       cell: 14,
       type: 'number',
       value: 2,
@@ -102,7 +104,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '3',
-      action: null,
+      action: 'number',
       cell: 15,
       type: 'number',
       value: 3,
@@ -110,7 +112,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '4',
-      action: null,
+      action: 'number',
       cell: 9,
       type: 'number',
       value: 4,
@@ -118,7 +120,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '5',
-      action: null,
+      action: 'number',
       cell: 10,
       type: 'number',
       value: 5,
@@ -126,7 +128,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '6',
-      action: null,
+      action: 'number',
       cell: 11,
       type: 'number',
       value: 6,
@@ -134,7 +136,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '7',
-      action: null,
+      action: 'number',
       cell: 5,
       type: 'number',
       value: 7,
@@ -142,7 +144,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '8',
-      action: null,
+      action: 'number',
       cell: 6,
       type: 'number',
       value: 8,
@@ -150,7 +152,7 @@ export const CalculatorContainer = (props) => {
     },
     {
       label: '9',
-      action: null,
+      action: 'number',
       cell: 7,
       type: 'number',
       value: 9,
@@ -158,7 +160,7 @@ export const CalculatorContainer = (props) => {
     },
   ]);
 
-  const onButtonClick = ({ cell, value }) => {
+  const onButtonClick = ({ cell, value, action }) => {
     const changeButtonIsClicked = (isClicked) => {
       const buttonsCopy = buttons.slice();
       const button = buttonsCopy.find((but) => but.cell === cell);
@@ -167,33 +169,39 @@ export const CalculatorContainer = (props) => {
       const newButtons = buttonsWithoutClickedButton.concat(button);
       changeButtons(newButtons);
     };
+
     changeButtonIsClicked(true);
-    changeInputValue(`${input}${value}`);
+
+    switch (action) {
+      case 'clean':
+        changeMathquillValue();
+        changeInputValue('');
+        break;
+      case 'backspace':
+        changeInputValue(input.slice(0, -1));
+        break;
+      case 'operand':
+        break;
+      case 'number':
+        changeInputValue(`${input}${value}`);
+        break;
+      default:
+        break;
+    }
+
     setTimeout(() => {
       changeButtonIsClicked(false);
     }, 250);
   };
 
-  const onCleanButtonClick = () => {
-    changeInputValue(``);
-  };
-
-  return (
-    <Calculator
-      {...props}
-      buttons={buttons}
-      onButtonClick={onButtonClick}
-      onCleanButtonClick={onCleanButtonClick}
-    />
-  );
+  return <Calculator {...props} buttons={buttons} onButtonClick={onButtonClick} />;
 };
 
 const mapStateToProps = (state) => ({
   input: state.calc.input,
+  mathquill: state.calc.mathquill,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (value) => dispatch(actions.changeInputValue(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CalculatorContainer);
+export default connect(mapStateToProps, { changeInputValue, changeMathquillValue })(
+  CalculatorContainer
+);

@@ -32,7 +32,7 @@ const Calculator = (props) => {
       className={classes.Calculator}
       onClick={onScreenClick}>
       <div>
-        <Display input={props.input} />
+        <Display input={props.input} mathquill={props.mathquill} />
         <Keyboard {...props} />
       </div>
     </div>

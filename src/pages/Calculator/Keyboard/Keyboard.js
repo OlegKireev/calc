@@ -10,7 +10,7 @@ const Keyboard = (props) => {
   const renderButtons = (buttonsArr) => {
     const sortedArr = buttonsArr.sort((a, b) => a.cell - b.cell);
     return sortedArr.map((button) => {
-      const { label, action, type, isClicked, cell } = button;
+      const { label, type, isClicked, cell } = button;
       return (
         <Transition key={`${label}${cell}`} in={isClicked} timeout={{ enter: 250 }}>
           {(state) => (

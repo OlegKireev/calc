@@ -1,5 +1,10 @@
 const types = {
   CHANGE_INPUT_VALUE: 'calc/CHANGE_INPUT_VALUE',
+  CHANGE_MATHQUILL_VALUE: 'calc/CHANGE_MATHQUILL_VALUE',
+  SET_VALUE_A: 'calc/SET_VALUE_A',
+  SET_VALUE_B: 'calc/SET_VALUE_B',
+  SET_RESULT: 'calc/SET_RESULT',
+  SET_OPERAND: 'calc/SET_OPERAND',
 };
 
 export default types;
