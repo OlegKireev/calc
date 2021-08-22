@@ -1,12 +1,10 @@
 import React from 'react';
-import { Layout } from './Layout/index';
-import { Calculator } from './pages/Calculator/index';
-import { GlobalStyles } from './styles/GlobalStyles';
+import { Layout } from './Layout/Layout';
+import Calculator from './pages/Calculator/CalculatorContainer';
 
 const App = () => {
   return (
     <>
-      <GlobalStyles />
       <Layout>
         <Calculator />
       </Layout>
