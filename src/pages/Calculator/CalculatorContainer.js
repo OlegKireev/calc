@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Calculator from './Calculator';
+import actions from '../../store/ducks/calc/actions';
 
 export const CalculatorContainer = (props) => {
+  const { input, changeInputValue } = props;
   const [buttons, changeButtons] = useState([
     {
       label: 'C',
@@ -154,8 +157,6 @@ export const CalculatorContainer = (props) => {
       isClicked: false,
     },
   ]);
-  const [input, changeInput] = useState('');
-  const [mathquill, changeMathquill] = useState(null);
 
   const onButtonClick = ({ cell, value }) => {
     const changeButtonIsClicked = (isClicked) => {
@@ -167,25 +168,32 @@ export const CalculatorContainer = (props) => {
       changeButtons(newButtons);
     };
     changeButtonIsClicked(true);
-    changeInput(`${input}${value}`);
+    changeInputValue(`${input}${value}`);
     setTimeout(() => {
       changeButtonIsClicked(false);
     }, 250);
   };
 
   const onCleanButtonClick = () => {
-    changeInput(``);
+    changeInputValue(``);
   };
 
   return (
     <Calculator
       {...props}
       buttons={buttons}
-      input={input}
       onButtonClick={onButtonClick}
       onCleanButtonClick={onCleanButtonClick}
     />
   );
 };
 
-export default CalculatorContainer;
+const mapStateToProps = (state) => ({
+  input: state.calc.input,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeInputValue: (value) => dispatch(actions.changeInputValue(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalculatorContainer);
