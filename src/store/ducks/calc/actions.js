@@ -1,40 +1,63 @@
 import types from './types';
 
-export const changeInputValue = (value) => {
+export const resetCalcState = () => {
   return {
-    type: types.CHANGE_INPUT_VALUE,
+    type: types.RESET_CALC_STATE,
+  };
+};
+
+export const setInputValue = (value) => {
+  return {
+    type: types.SET_INPUT_VALUE,
     payload: value,
   };
 };
 
-export const changeMathquillValue = (value) => {
+export const setMathquillValue = () => {
   return {
-    type: types.CHANGE_MATHQUILL_VALUE,
-    payload: value,
+    type: types.SET_MATHQUILL_VALUE,
   };
 };
 
-export const setValuA = () => {
+export const setValueA = () => {
   return {
     type: types.SET_VALUE_A,
   };
 };
 
-export const setValuB = () => {
+export const setValueB = () => {
   return {
     type: types.SET_VALUE_B,
   };
 };
 
-export const setOperand = (value) => {
+export const setOperator = (value) => {
   return {
-    type: types.SET_OPERAND,
+    type: types.SET_OPERATOR,
     payload: value,
   };
 };
 
-export const setResult = () => {
+export const setResult = (result) => {
   return {
     type: types.SET_RESULT,
+    payload: result,
   };
 };
+
+export const setResetCounter = (value) => {
+  return {
+    type: types.SET_RESET_COUNTER,
+    payload: value,
+  };
+};
+
+export const setButtonIsClicked = (button) => ({
+  type: types.SET_BUTTON_IS_CLICKED,
+  payload: button,
+});
+
+export const setButtons = (buttons) => ({
+  type: types.SET_BUTTONS,
+  payload: buttons,
+});

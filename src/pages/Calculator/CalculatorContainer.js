@@ -1,27 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Calculator from './Calculator';
-import { changeInputValue, changeMathquillValue } from '../../store/ducks/calc/actions';
-import { toggleButtonIsClicked } from '../../store/ducks/buttons/thunks';
+import {
+  setInputValue,
+  setMathquillValue,
+  resetCalcState,
+  setResetCounter,
+} from '../../store/ducks/calc/actions';
+import {
+  toggleButtonIsClicked,
+  operatorClickHandler,
+  resultClickHandler,
+  resetClickHandler,
+} from '../../store/ducks/calc/thunks';
 
 export const CalculatorContainer = (props) => {
-  const { input, changeInputValue, changeMathquillValue, buttons, toggleButtonIsClicked } = props;
+  const {
+    input,
+
+    setInputValue,
+    setMathquillValue,
+    resetCalcState,
+    buttons,
+    toggleButtonIsClicked,
+    operatorClickHandler,
+    resetCounter,
+    setResetCounter,
+    resultClickHandler,
+    resetClickHandler,
+  } = props;
 
   const onButtonClick = (button) => {
     toggleButtonIsClicked(button);
 
     switch (button.action) {
       case 'clean':
-        changeMathquillValue();
-        changeInputValue('');
+        resetClickHandler(resetCounter);
         break;
       case 'backspace':
-        changeInputValue(input.slice(0, -1));
+        setInputValue(input.slice(0, -1));
         break;
-      case 'operand':
+      case 'operator':
+        operatorClickHandler(button);
+        break;
+      case 'result':
+        resultClickHandler();
         break;
       case 'number':
-        changeInputValue(`${input}${button.value}`);
+        setInputValue(`${input}${button.value}`);
         break;
       default:
         break;
@@ -34,11 +60,19 @@ export const CalculatorContainer = (props) => {
 const mapStateToProps = (state) => ({
   input: state.calc.input,
   mathquill: state.calc.mathquill,
-  buttons: state.buttons.buttons,
+  operator: state.calc.operator,
+  result: state.calc.result,
+  buttons: state.calc.buttons,
+  resetCounter: state.calc.resetCounter,
 });
 
 export default connect(mapStateToProps, {
-  changeInputValue,
-  changeMathquillValue,
+  resetCalcState,
+  setInputValue,
+  setMathquillValue,
   toggleButtonIsClicked,
+  operatorClickHandler,
+  resultClickHandler,
+  setResetCounter,
+  resetClickHandler,
 })(CalculatorContainer);
