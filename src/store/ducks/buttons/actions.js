@@ -1,8 +1,8 @@
 import types from './types';
 
-export const setButtonIsClicked = (params) => ({
+export const setButtonIsClicked = (button) => ({
   type: types.SET_BUTTON_IS_CLICKED,
-  payload: params,
+  payload: button,
 });
 
 export const setButtons = (buttons) => ({

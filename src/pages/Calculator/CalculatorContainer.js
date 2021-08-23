@@ -2,24 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Calculator from './Calculator';
 import { changeInputValue, changeMathquillValue } from '../../store/ducks/calc/actions';
-import { setButtons } from '../../store/ducks/buttons/actions';
+import { toggleButtonIsClicked } from '../../store/ducks/buttons/thunks';
 
 export const CalculatorContainer = (props) => {
-  const { input, changeInputValue, changeMathquillValue, buttons, setButtons } = props;
+  const { input, changeInputValue, changeMathquillValue, buttons, toggleButtonIsClicked } = props;
 
-  const onButtonClick = ({ cell, value, action }) => {
-    const changeButtonIsClicked = (isClicked) => {
-      const buttonsCopy = buttons.slice();
-      const button = buttonsCopy.find((but) => but.cell === cell);
-      const buttonsWithoutClickedButton = buttonsCopy.filter((button) => button.cell !== cell);
-      button.isClicked = isClicked;
-      const newButtons = buttonsWithoutClickedButton.concat(button);
-      setButtons(newButtons);
-    };
+  const onButtonClick = (button) => {
+    toggleButtonIsClicked(button);
 
-    changeButtonIsClicked(true);
-
-    switch (action) {
+    switch (button.action) {
       case 'clean':
         changeMathquillValue();
         changeInputValue('');
@@ -30,15 +21,11 @@ export const CalculatorContainer = (props) => {
       case 'operand':
         break;
       case 'number':
-        changeInputValue(`${input}${value}`);
+        changeInputValue(`${input}${button.value}`);
         break;
       default:
         break;
     }
-
-    setTimeout(() => {
-      changeButtonIsClicked(false);
-    }, 250);
   };
 
   return <Calculator {...props} buttons={buttons} onButtonClick={onButtonClick} />;
@@ -53,5 +40,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   changeInputValue,
   changeMathquillValue,
-  setButtons,
+  toggleButtonIsClicked,
 })(CalculatorContainer);
